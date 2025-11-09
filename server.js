@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 });
 
 // Create a student
-app.post('/students', async (req, res) => {
+app.post('/api/v1/students', async (req, res) => {
   try {
     const student = new Student(req.body);
     await student.save();
@@ -46,7 +46,7 @@ app.post('/students', async (req, res) => {
 });
 
 // Read all students
-app.get('/students', async (req, res) => {
+app.get('/api/v1/students', async (req, res) => {
   try {
     const students = await Student.find().sort({ createdAt: -1 });
     res.json(students);
@@ -56,7 +56,7 @@ app.get('/students', async (req, res) => {
 });
 
 // Read one student
-app.get('/students/:id', async (req, res) => {
+app.get('/api/v1/students/:id', async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
     if (!student) return res.status(404).json({ message: 'Student not found' });
@@ -67,7 +67,7 @@ app.get('/students/:id', async (req, res) => {
 });
 
 // Update student
-app.put('/students/:id', async (req, res) => {
+app.put('/api/v1/students/:id', async (req, res) => {
   try {
     const student = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!student) return res.status(404).json({ message: 'Student not found' });
@@ -78,7 +78,7 @@ app.put('/students/:id', async (req, res) => {
 });
 
 // Delete student
-app.delete('/students/:id', async (req, res) => {
+app.delete('/api/v1/students/:id', async (req, res) => {
   try {
     const student = await Student.findByIdAndDelete(req.params.id);
     if (!student) return res.status(404).json({ message: 'Student not found' });
